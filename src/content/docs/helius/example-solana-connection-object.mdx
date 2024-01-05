@@ -1,0 +1,22 @@
+---
+title: Solana Connection Object
+description: Use the Helius SDK to access the Solana connection object
+sidebar:
+  order: 400
+---
+
+In this guide, we will use the Helius SDK ([installation](/helius/installation)/[usage](/helius/usage)) to access the Solana connection object.
+
+### Access the Solana connection object
+
+```typescript
+// You can access the Solana connection object
+const hash = await client.connection.getGenesisHash()
+
+// Will print EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG on devnet
+console.log('Genesis hash:', hash)
+
+// Get the version of the node
+const version = await client.connection.getVersion()
+console.log('Version:', version)
+```

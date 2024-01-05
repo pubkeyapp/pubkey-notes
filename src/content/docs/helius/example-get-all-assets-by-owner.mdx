@@ -1,0 +1,93 @@
+---
+title: Get All Assets by Owner
+description: Use the Helius SDK to find all the assets owned by an account and filter by optional list of collections (comma separated)
+sidebar:
+  order: 200
+---
+
+In this guide, we will use the Helius SDK ([installation](/helius/installation)/[usage](/helius/usage))
+to fetch all the NFTs owned by an account from the [DAS](https://docs.helius.dev/compression-and-das-api/digital-asset-standard-das-api) API.
+
+You can optionally filter by a list of collections (comma separated) which is useful for NFT-based 'token gating'.
+
+### Helper functions
+
+First, let's define some helper functions that make it easier to work with the results of the DAS API.
+
+```typescript
+// Helper to find the collection ID for an asset
+function findCollectionId(asset: DAS.GetAssetResponse) {
+  return asset.grouping?.find((g) => g.group_key === 'collection')?.group_value
+}
+
+// Helper to filter assets by optional list of collections (comma separated)
+function filterAssetsByCollection(items: DAS.GetAssetResponse[], collections?: string) {
+  return items.filter((item) => !collections || collections.split(',').includes(findCollectionId(item) ?? ''))
+}
+```
+
+### Get assets by owner (single page)
+
+We create a wrapper function to get the assets by owner and filter by optional list of collections.
+
+```typescript
+// Get assets by owner and filter by optional list of collections (comma separated)
+export async function getAssetsByOwner(
+  client: Helius,
+  account: string,
+  collections?: string,
+  limit = 1000,
+  page = 1,
+): Promise<DAS.GetAssetResponseList> {
+  return client.rpc
+    .getAssetsByOwner({
+      ownerAddress: account,
+      limit,
+      page,
+    })
+    .then((res) => {
+      const items = res?.items ? filterAssetsByCollection(res?.items, collections) : []
+      return { ...res, total: items.length, items }
+    })
+}
+```
+
+### Get all assets by owner (all pages)
+
+We create a wrapper function that calls the previous function until all the pages are fetched.
+
+```typescript
+
+// Get all assets by owner and filter by optional list of collections (comma separated)
+export async function getAllAssetsByOwner(
+  client: Helius,
+  account: string,
+  collections?: string,
+): Promise<DAS.GetAssetResponseList> {
+  const list: DAS.GetAssetResponseList = { total: 0, items: [], limit: 1000, page: 1 }
+
+  while (list.total < list.page * list.limit) {
+    const assets = await getAssetsByOwner(client, account, collections, list.limit, list.page)
+    if (assets.items.length === 0) {
+      break
+    }
+    list.items.push(...assets.items)
+    list.total += assets.total
+    list.page++
+  }
+
+  return { ...list, page: list.page - 1 }
+}
+```
+
+### Usage
+
+Now we can use the wrapper functions to get all the NFTs:
+
+```typescript
+await getAllAssetsByOwner(client, 'account', 'collection1,collection2')
+  .then(({ items, limit, page, total }) => {
+    console.log(JSON.stringify({ items, limit, page, total }, null, 2))
+  })
+
+```

@@ -57,7 +57,6 @@ export async function getAssetsByOwner(
 We create a wrapper function that calls the previous function until all the pages are fetched.
 
 ```typescript
-
 // Get all assets by owner and filter by optional list of collections (comma separated)
 export async function getAllAssetsByOwner(
   client: Helius,
@@ -85,9 +84,7 @@ export async function getAllAssetsByOwner(
 Now we can use the wrapper functions to get all the NFTs:
 
 ```typescript
-await getAllAssetsByOwner(client, 'account', 'collection1,collection2')
-  .then(({ items, limit, page, total }) => {
-    console.log(JSON.stringify({ items, limit, page, total }, null, 2))
-  })
-
+await getAllAssetsByOwner(client, 'account', 'collection1,collection2').then(({ items, limit, page, total }) => {
+  console.log(JSON.stringify({ items, limit, page, total }, null, 2))
+})
 ```

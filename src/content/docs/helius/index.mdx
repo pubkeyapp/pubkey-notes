@@ -29,5 +29,16 @@ See the [Helius usage page](/helius/usage) for more details.
 There are scripts in `snippets/helius` that you can run like so:
 
 ```sh
-HELIUS_API_KEY='<your-api-key>' pnpm esrun snippets/helius/index.ts
+# Get all assets by group (eg, collection)
+# This logic is useful if you want to get a snapshot of all assets in a group and their owners.
+# Supported env vars: GROUP to look up and OWNERS to filter on.
+HELIUS_API_KEY='<your-api-key>' HELIUS_CLUSTER=mainnet-beta pnpm esrun snippets/helius/example-get-all-assets-by-group.ts
+
+# Get all assets by owner
+# This logic is useful if you want to 'token-gate' a user's access to your app.
+# Supported env vars: OWNER to look up and GROUPS to filter on.
+HELIUS_API_KEY='<your-api-key>' HELIUS_CLUSTER=mainnet-beta pnpm esrun snippets/helius/example-get-all-assets-by-owner.ts
+
+# Show how to use the Solana connection exposed by the Helius SDK.
+HELIUS_API_KEY='<your-api-key>' HELIUS_CLUSTER=mainnet-beta pnpm esrun snippets/helius/example-solana-connection.ts
 ```

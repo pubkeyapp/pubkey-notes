@@ -1,0 +1,23 @@
+---
+title: SPL Tokens
+---
+
+## Snippets
+
+### Get all token accounts for an owner
+
+This is an example of how to get all token accounts for an owner.
+It supports the [Token program](https://spl.solana.com/token) and [Token 2022](https://spl.solana.com/token-2022) programs.
+
+```ts
+import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token'
+import { Connection, PublicKey } from '@solana/web3.js'
+
+async function getTokenAccountsByOwner(connection: Connection, owner: PublicKey) {
+  const [tokenAccounts, token2022Accounts] = await Promise.all([
+    connection.getParsedTokenAccountsByOwner(owner, { programId: TOKEN_PROGRAM_ID }),
+    connection.getParsedTokenAccountsByOwner(owner, { programId: TOKEN_2022_PROGRAM_ID }),
+  ])
+  return [...tokenAccounts.value, ...token2022Accounts.value]
+}
+```

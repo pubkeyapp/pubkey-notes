@@ -1,0 +1,48 @@
+---
+title: Getting Started
+description: How to install and initialize the Helius SDK.
+sidebar:
+  order: 2
+---
+
+import { TabItem, Tabs } from '@astrojs/starlight/components'
+import PackageTabs from '../../../components/PackageTabs.astro'
+
+## Installation
+
+Install the `@solana/web3.js` package using your favorite package manager.
+
+<PackageTabs name="@solana/web3.js" />
+
+## Getting Started
+
+Import the `Connection` class from the `@solana/web3.js` package and instantiate it with the desired cluster endpoint.
+
+<Tabs>
+  <TabItem label="Node">
+    ```typescript
+    // import the Helius SDK
+    import { Connection, clusterApiUrl } from '@solana/web3.js'
+
+    // Connect to the devnet cluster
+    const endpoint = process.env['SOLANA_ENDPOINT'] ?? clusterApiUrl('devnet')
+
+    // Instantiate the connection
+    const connection = new Connection(endpoint, 'confirmed')
+    ```
+
+  </TabItem>
+  <TabItem label="Browser">
+    ```typescript
+    // import the Helius SDK
+    import { Connection, clusterApiUrl } from '@solana/web3.js'
+
+    // Connect to the devnet cluster
+    const endpoint = clusterApiUrl('devnet')
+
+    // Instantiate the connection
+    const connection = new Connection(endpoint, 'confirmed')
+    ```
+
+  </TabItem>
+</Tabs>

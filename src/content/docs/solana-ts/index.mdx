@@ -1,0 +1,32 @@
+---
+title: Overview
+description: An overview of the Solana TypeScript SDK and how to use it.
+sidebar:
+  order: 1
+---
+
+import PackageShields from '../../../components/PackageShields.astro'
+
+<PackageShields pkg="@solana/web3.js" repo="solana-labs/solana-web3.js" />
+
+## Resources
+
+- [Solana docs](https://docs.solana.com/)
+- [SDK Repo](https://github.com/solana-labs/solana-web3.js)
+- [NPM package](https://npm.im/@solana/web3.js)
+
+## Getting Started
+
+See the [Getting Started](/solana/getting-started) page for more details.
+
+## Examples
+
+- [Get all token accounts](/solana/examples/get-all-token-accounts)
+
+## Scripts
+
+There are scripts in `snippets/solana` that you can run like so:
+
+```sh
+SOLANA_ENDPOINT=mainnet-beta pnpm esrun snippets/solana-ts/example-get-all-assets-by-group.ts
+```

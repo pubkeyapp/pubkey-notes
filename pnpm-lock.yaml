@@ -1680,7 +1680,7 @@ packages:
       '@metaplex-foundation/beet': 0.7.2
       '@metaplex-foundation/beet-solana': 0.4.1
       '@metaplex-foundation/cusper': 0.0.2
-      '@solana/spl-token': 0.3.10(@solana/web3.js@1.87.6)(fastestsmallesttextencoderdecoder@1.0.22)
+      '@solana/spl-token': 0.3.10(@solana-ts/web3.js@1.87.6)(fastestsmallesttextencoderdecoder@1.0.22)
       '@solana/web3.js': 1.87.6
       bn.js: 5.2.1
       debug: 4.3.4
@@ -2116,7 +2116,7 @@ packages:
     dependencies:
       '@solana/buffer-layout': 4.0.1
       '@solana/buffer-layout-utils': 0.2.0
-      '@solana/spl-token-metadata': 0.1.2(@solana/web3.js@1.87.6)(fastestsmallesttextencoderdecoder@1.0.22)
+      '@solana/spl-token-metadata': 0.1.2(@solana-ts/web3.js@1.87.6)(fastestsmallesttextencoderdecoder@1.0.22)
       '@solana/web3.js': 1.87.6
       buffer: 6.0.3
     transitivePeerDependencies:

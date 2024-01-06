@@ -5,6 +5,10 @@ sidebar:
   order: 1
 ---
 
+import PackageShields from '../../../components/PackageShields.astro'
+
+<PackageShields pkg="helius-sdk" repo="helius-labs/helius-sdk" />
+
 ## Resources
 
 - [Helius docs](https://docs.helius.dev/)
@@ -12,17 +16,15 @@ sidebar:
 - [SDK Repo](https://github.com/helius-labs/helius-sdk)
 - [NPM package](https://npm.im/helius-sdk)
 
-## Installation
+## Getting Started
 
-See the [Helius installation page](/helius/installation) for more details.
-
-## Usage
-
-See the [Helius usage page](/helius/usage) for more details.
+See the [Getting Started](/helius/getting-started) page for more details.
 
 ## Examples
 
-- [Get all assets by owner](/helius/example-get-all-assets-by-owner)
+- [Get all assets by group](/helius/examples/get-all-assets-by-group) (collection snapshot)
+- [Get all assets by owner](/helius/examples/get-all-assets-by-owner) (token-gating)
+- [Solana connection](/helius/examples/solana-connection) (Use the Solana connection)
 
 ## Scripts
 
@@ -40,5 +42,5 @@ HELIUS_API_KEY='<your-api-key>' HELIUS_CLUSTER=mainnet-beta pnpm esrun snippets/
 HELIUS_API_KEY='<your-api-key>' HELIUS_CLUSTER=mainnet-beta pnpm esrun snippets/helius/example-get-all-assets-by-owner.ts
 
 # Show how to use the Solana connection exposed by the Helius SDK.
-HELIUS_API_KEY='<your-api-key>' HELIUS_CLUSTER=mainnet-beta pnpm esrun snippets/helius/example-solana-connection.ts
+HELIUS_API_KEY='<your-api-key>' HELIUS_CLUSTER=mainnet-beta pnpm esrun snippets/helius/example-solana-ts-connection.ts
 ```

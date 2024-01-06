@@ -1,0 +1,99 @@
+---
+title: Getting Started
+description: How to install and initialize the Helius SDK.
+sidebar:
+  order: 2
+---
+
+## Prerequisites
+
+### Rust and Cargo (Required)
+
+You need to have Rust installed on your machine. Read the <a href="https://www.rust-lang.org/tools/install" target="_blank" rel='noopener noreferrer'>official documentation</a> for more details.
+
+#### Installation
+
+The following command will install the latest stable version of Rust and Cargo:
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+```
+
+:::note
+You may need to restart your terminal session to see these changes.
+:::
+
+#### Verify Installation
+
+You should now have Rust and Cargo installed. You can verify this by running:
+
+```sh
+cargo --version
+# output: cargo 1.75.0 (1d8b05cdd 2023-11-20)
+rustc --version
+# output: rustc 1.75.0 (82e1608df 2023-12-21)
+```
+
+### Solana CLI (Required)
+
+You need to have the Solana CLI installed on your machine. Read the <a href="https://docs.solana.com/cli/install-solana-cli-tools" target="_blank" rel='noopener noreferrer'>official documentation</a> for more details.
+
+#### Installation
+
+The following command will install the stable version of the Solana CLI:
+
+```sh
+sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
+```
+
+:::note
+You may need to restart your terminal session to see these changes.
+:::
+
+#### Verify Installation
+
+You should now have the Solana CLI installed. You can verify this by running:
+
+```sh
+solana --version
+# output: solana-cli 1.16.26 (src:835183af; feat:2294205250, client:SolanaLabs)
+```
+
+### SPL Token CLI (Optional)
+
+If you want to interact with SPL tokens, you need to have the SPL Token CLI installed on your machine. Read the <a href="https://spl.solana.com/token" target="_blank" rel='noopener noreferrer'>official documentation</a> for more details.
+
+The following command will install the stable version of the SPL Token CLI:
+
+```sh
+cargo install spl-token-cli
+```
+
+You should now have the SPL Token CLI installed. You can verify this by running:
+
+```sh
+spl-token --version
+# output: spl-token-cli 3.2.0
+```
+
+### Anchor CLI (Optional)
+
+If you want to write Anchor programs, you need to have the Anchor CLI installed on your machine. Read the <a href="https://www.anchor-lang.com/docs/installation" target="_blank" rel='noopener noreferrer'>official documentation</a> for more details.
+
+```sh
+# Install the Anchor Version Manager (avm)
+cargo install --git https://github.com/coral-xyz/anchor avm --locked --force
+# Use the avm to install the latest version of the Anchor CLI
+avm install latest
+# Set the anchor cli to use the latest version
+avm use latest
+```
+
+You should now have the Anchor CLI installed. You can verify this by running:
+
+```sh
+avm --version
+# output: avm 0.29.0
+anchor --version
+# output: anchor-cli 0.29.0
+```

@@ -5,6 +5,7 @@ sidebar:
   order: 2
 ---
 
+import { TabItem, Tabs } from '@astrojs/starlight/components'
 import PackageTabs from '../../../components/PackageTabs.astro'
 
 ## Installation
@@ -18,13 +19,33 @@ Install the `helius-sdk` package using your favorite package manager.
 Import the `Helius` class from the `helius-sdk` package and instantiate it with your API key and the desired cluster.
 The Helius SDK is available for the 'devnet' and 'mainnet-beta' clusters.
 
-```typescript
-// import the Helius SDK
-import { Helius } from 'helius-sdk'
+<Tabs>
+  <TabItem label="Node">
 
-// Get your API key from https://dev.helius.xyz/
-const apiKey = process.env['HELIUS_API_KEY'] ?? '<your-api-key>'
+    ```typescript
+    // import the Helius SDK
+    import { Helius } from 'helius-sdk'
 
-// Instantiate the Helius SDK
-const client = new Helius(apiKey, 'devnet') // or 'mainnet-beta'
-```
+    // Get your API key from https://dev.helius.xyz/
+    const apiKey = process.env['HELIUS_API_KEY'] ?? '<your-api-key>'
+
+    // Instantiate the Helius SDK
+    const client = new Helius(apiKey, 'devnet') // or 'mainnet-beta'
+    ```
+
+  </TabItem>
+  <TabItem label="Browser">
+
+    ```typescript
+    // import the Helius SDK
+    import { Helius } from 'helius-sdk'
+
+    // Get your API key from https://dev.helius.xyz/
+    const apiKey = '<your-api-key>'
+
+    // Instantiate the Helius SDK
+    const client = new Helius(apiKey, 'devnet') // or 'mainnet-beta'
+    ```
+
+  </TabItem>
+</Tabs>

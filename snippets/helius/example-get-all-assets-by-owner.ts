@@ -6,7 +6,7 @@ const client = getHeliusClient()
 // Get the account and groups from the environment variables
 const owner = process.env['OWNER'] ?? 'BeEMuaaQCQPodQdaA7W6Rmsu7761vCabN4Tth6jA4VCP'
 const groups = process.env['GROUPS']
-
+await getAllAssetsByOwner(client, owner, groups)
 // Get all assets for this owner and filter by groups
 await getAllAssetsByOwner(client, owner, groups)
   // Print the results

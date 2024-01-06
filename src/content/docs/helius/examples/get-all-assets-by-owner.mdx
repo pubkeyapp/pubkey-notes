@@ -1,0 +1,92 @@
+---
+title: Get All Assets by Owner
+description: Use the Helius SDK to find all the assets owned by an account and filter by optional list of collections (comma separated)
+sidebar:
+  order: 300
+---
+
+In this guide, we will use the [Helius SDK](/helius/getting-started) to fetch all the assets by owner from the <a href="https://docs.helius.dev/compression-and-das-api/digital-asset-standard-das-api" target="_blank" rel="noopener noreferrer">DAS API</a>.
+
+This logic is useful if you want to 'token-gate' a user's access to your app.
+
+:::note
+You can find a runnable example of this script in `snippets/helius` on <a href="https://github.com/pubkeyapp/pubkey-notes/tree/main/snippets/helius" target="_blank" rel="noopener noreferrer">GitHub</a>.
+:::
+
+## Implementation
+
+First, we define some helper functions that make it easier to work with the results of the DAS API.
+
+We then create a wrapper function that paginates through all the assets owned by an account and filters by the optional list of collections.
+
+```typescript
+import { type DAS, Helius } from 'helius-sdk'
+
+/**
+ * Find the collection group value for the asset
+ * @param asset DAS.GetAssetResponse Asset to find the collection group value for
+ */
+export function findAssetGroupValue(asset: DAS.GetAssetResponse) {
+  return asset.grouping?.find((g) => g.group_key === 'collection')?.group_value
+}
+
+/**
+ * Filter assets by optional list of collections (comma separated)
+ * @param items DAS.GetAssetResponse[] List of assets to filter
+ * @param groups string Optional list of groups (comma separated)
+ */
+export function findAssetsByGroup(items: DAS.GetAssetResponse[], groups?: string) {
+  return items.filter((item) => !groups || groups.split(',').includes(findAssetGroupValue(item) ?? ''))
+}
+
+/**
+ * Get all assets by owner and filter by optional list of groups (comma separated)
+ * @param client Helius Helius client
+ * @param owner string Solana account address of owner
+ * @param groups string Optional list of groups (comma separated)
+ */
+export async function getAllAssetsByOwner(
+  client: Helius,
+  owner: string,
+  groups?: string,
+): Promise<DAS.GetAssetResponseList> {
+  // Create a response list similar to the one returned by the API
+  const list: DAS.GetAssetResponseList = { total: 0, items: [], limit: 1000, page: 1 }
+
+  // Loop through all pages of assets
+  while (list.total < list.page * list.limit) {
+    const assets = await client.rpc.getAssetsByOwner({
+      ownerAddress: owner,
+      limit: list.limit,
+      page: list.page,
+    })
+    if (assets.items.length === 0) {
+      break
+    }
+    list.items.push(...assets.items)
+    list.total += assets.total
+    list.page++
+  }
+
+  // Filter the assets by group
+  const items = list?.items ? findAssetsByGroup(list?.items, groups) : []
+
+  // Return the list with the page offset by 1
+  return { ...list, page: list.page - 1, items }
+}
+```
+
+### Usage
+
+Now we can use the wrapper functions to get all the NFTs:
+
+```typescript
+// Get the account and groups
+const owner = 'BeEMuaaQCQPodQdaA7W6Rmsu7761vCabN4Tth6jA4VCP'
+const groups = 'Da7ryJm1WRaZagzWVSYvS8dtwQnV1iN3cz76wGH7D6UX'
+await getAllAssetsByOwner(client, owner, groups)
+  // Do something with the results
+  .then(({ items, limit, page, total }) => {
+    console.log(JSON.stringify({ items, limit, page, total }, null, 2))
+  })
+```

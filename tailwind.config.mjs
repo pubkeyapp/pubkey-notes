@@ -1,4 +1,5 @@
 import starlightPlugin from '@astrojs/starlight-tailwind'
+import { DEFAULT_THEME } from '@mantine/core'
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -6,20 +7,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        gray: {
-          50: '#C9C9C9',
-          100: '#b8b8b8',
-          200: '#828282',
-          300: '#696969',
-          400: '#424242',
-          500: '#3b3b3b',
-          600: '#2e2e2e',
-          700: '#242424',
-          800: '#1f1f1f',
-          900: '#141414',
-        },
+        gray: convertToTailwind(DEFAULT_THEME.colors.dark),
+        brand: convertToTailwind(DEFAULT_THEME.colors.blue),
       },
     },
   },
   plugins: [starlightPlugin()],
+}
+
+function convertToTailwind(items) {
+  return {
+    50: items[0],
+    100: items[1],
+    200: items[2],
+    300: items[3],
+    400: items[4],
+    500: items[5],
+    600: items[6],
+    700: items[7],
+    800: items[8],
+    900: items[9],
+  }
 }

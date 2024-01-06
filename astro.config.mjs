@@ -13,37 +13,18 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: 'Guides',
-          items: [
-            // Each item here is one entry in the navigation menu.
-            {
-              label: 'Example Guide',
-              link: '/guides/example/',
-            },
-          ],
-        },
-        {
-          label: 'Reference',
-          autogenerate: {
-            directory: 'reference',
-          },
-        },
-        {
           label: 'Helius',
-          autogenerate: {
-            directory: 'helius',
-          },
+
+          items: [
+            { label: 'Overview', link: '/helius' },
+            { label: 'Getting Started', link: '/helius/getting-started/' },
+            { label: 'Examples', autogenerate: { directory: 'helius/examples' } },
+          ],
         },
         {
           label: 'Solana',
           autogenerate: {
             directory: 'solana',
-          },
-        },
-        {
-          label: 'Dev',
-          autogenerate: {
-            directory: 'dev',
           },
         },
       ],
